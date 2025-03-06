@@ -1,0 +1,146 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 20% 98%; /* Alterado de azul (210) para vermelho */
+    --foreground: 224 71.4% 4.1%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+
+    --primary: 0 100% 50%; /* Alterado de azul (210) para vermelho */
+    --primary-foreground: 0 40% 98%; /* Alterado para ficar mais harmonioso com o vermelho */
+
+    --secondary: 0 40% 96.1%; /* Alterado para um tom mais suave de vermelho */
+    --secondary-foreground: 0 47.4% 11.2%; /* Ajuste para a tonalidade de fundo vermelha */
+
+    --muted: 0 40% 96.1%; /* Alterado para tons suaves de vermelho */
+    --muted-foreground: 0 16.3% 46.9%;
+
+    --accent: 0 40% 96.1%; /* Alterado para um tom suave de vermelho */
+    --accent-foreground: 0 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%; /* Vermelho mais intenso para ações destrutivas */
+    --destructive-foreground: 0 40% 98%; /* Para o texto em áreas destrutivas */
+
+    --border: 0 31.8% 91.4%; /* Alterado para um tom mais quente de vermelho */
+    --input: 0 31.8% 91.4%;
+    --ring: 0 84% 49%; /* Ajuste para dar destaque em vermelho */
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 0 5.9% 10%; /* Alterado para cor primária vermelha */
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 4.8% 95.9%;
+    --sidebar-accent-foreground: 0 5.9% 10%;
+    --sidebar-border: 0 13% 91%;
+    --sidebar-ring: 0 91.2% 59.8%; /* Alterado para um tom vermelho na borda */
+
+    --status-delayed: 0 84.2% 60.2%; /* Tom de vermelho para status */
+    --status-delayed-foreground: 0 40% 98%;
+    --status-inprogress: 0 92% 50%; /* Vermelho suave para progresso */
+    --status-inprogress-foreground: 0 0% 0%;
+    --status-completed: 0 71% 45%; /* Vermelho para status completado */
+    --status-completed-foreground: 0 40% 98%;
+  }
+
+  .dark {
+    --background: 0 71.4% 4.1%; /* Alterado para fundo escuro de vermelho */
+    --foreground: 0 20% 98%; /* Texto claro em fundo escuro vermelho */
+
+    --card: 0 71.4% 4.1%; /* Alterado para fundo de cartão escuro vermelho */
+    --card-foreground: 0 20% 98%; /* Texto claro no cartão escuro */
+
+    --popover: 0 71.4% 4.1%; /* Alterado para popover escuro vermelho */
+    --popover-foreground: 0 20% 98%; /* Texto claro no popover */
+
+    --primary: 0 100% 50%; /* Vermelho intenso como principal */
+    --primary-foreground: 0 47.4% 11.2%; /* Texto claro em vermelho */
+
+    --secondary: 0 32.6% 17.5%; /* Secundário em tons mais escuros de vermelho */
+    --secondary-foreground: 0 40% 98%; /* Texto claro no secundário */
+
+    --muted: 0 32.6% 17.5%; /* Tons mais suaves de vermelho */
+    --muted-foreground: 0 20.2% 65.1%;
+
+    --accent: 0 32.6% 17.5%; /* Suave vermelho para o destaque */
+    --accent-foreground: 0 40% 98%; /* Texto claro em destaque */
+
+    --destructive: 0 62.8% 30.6%; /* Vermelho destrutivo mais suave */
+    --destructive-foreground: 0 40% 98%; /* Texto claro em área destrutiva */
+
+    --border: 0 32.6% 17.5%; /* Borda mais suave vermelha */
+    --input: 0 32.6% 17.5%;
+    --ring: 0 26.8% 83.9%; /* Anel com destaque suave vermelho */
+
+    --sidebar-background: 0 5.9% 10%; /* Fundo escuro em vermelho */
+    --sidebar-foreground: 0 4.8% 95.9%; /* Texto claro no sidebar */
+    --sidebar-primary: 0 76.3% 48%; /* Vermelho mais forte no sidebar */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 3.7% 15.9%;
+    --sidebar-accent-foreground: 0 4.8% 95.9%;
+    --sidebar-border: 0 3.7% 15.9%;
+    --sidebar-ring: 0 91.2% 59.8%; /* Borda com destaque suave vermelho */
+
+    --status-delayed: 0 62.8% 30.6%; /* Tom suave de vermelho para status */
+    --status-delayed-foreground: 0 40% 98%;
+    --status-inprogress: 0 92% 50%; /* Vermelho suave para status em andamento */
+    --status-inprogress-foreground: 0 0% 0%;
+    --status-completed: 0 76% 36%; /* Tom de vermelho para status completado */
+    --status-completed-foreground: 0 40% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+/* Custom animations */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 400ms, transform 400ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 300ms, transform 300ms;
+}
+
+/* Glass morphism styles */
+.glass {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark .glass {
+  background: rgba(17, 24, 39, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
