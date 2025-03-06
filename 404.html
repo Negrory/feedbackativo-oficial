@@ -8,29 +8,32 @@
       // MIT License
       // https://github.com/rafgraph/spa-github-pages
       (function(l) {
-        if (l.search[1] === '/') {
-          var decoded = l.search.slice(1).split('&').map(function(s) { 
-            return s.replace(/~and~/g, '&')
-          }).join('?');
-          window.history.replaceState(null, null,
-            l.pathname.slice(0, -1) + decoded + l.hash
-          );
+        // Não redirecionar se já estiver na página 404 do GitHub Pages
+        if (l.pathname.includes('/404.html')) {
+          return;
         }
-        
-        // Adiciona o basename do projeto se necessário
+
         var basename = '/feedbackativo-oficial';
         var path = l.pathname;
-        if (!path.startsWith(basename)) {
-          path = basename + path;
-        }
         
+        // Se o caminho não começar com o basename, adicione-o
+        if (!path.startsWith(basename)) {
+          path = basename + (path.startsWith('/') ? path : '/' + path);
+        }
+
+        // Redirecionar para a página principal com o caminho correto
         l.replace(
           l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-          path + (l.search || '') + l.hash
+          basename + '/#' + path.slice(basename.length) +
+          (l.search || '') +
+          (l.hash || '')
         );
       }(window.location))
     </script>
   </head>
   <body>
+    <noscript>
+      Para usar este aplicativo, você precisa habilitar JavaScript no seu navegador.
+    </noscript>
   </body>
 </html> 
