@@ -21,7 +21,7 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        <BrowserRouter basename="/feedbackativo-oficial">
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/consulta" element={<Consulta />} />
