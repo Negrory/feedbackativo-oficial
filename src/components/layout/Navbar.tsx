@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Search, Car, BarChart3, ClipboardCheck, RefreshCw } from 'lucide-react';
@@ -28,7 +27,7 @@ export const Navbar = () => {
     setIsOpen(false);
   }, [location.pathname]);
 
-  const isAdminPath = location.pathname.startsWith('/admin');
+  const isAdminPath = location.pathname.includes('/admin');
 
   const navLinks = isAdminPath
     ? [
@@ -51,7 +50,7 @@ export const Navbar = () => {
       <div className="container mx-auto px-4 sm:px-6 py-4">
         <div className="flex items-center justify-between">
           <Link 
-            to="/" 
+            to="/"
             className="flex items-center space-x-2 text-primary font-semibold text-lg transition duration-150 ease-in-out animate-fade-in"
           >
             <Car className="h-6 w-6" />
@@ -62,20 +61,20 @@ export const Navbar = () => {
           <div className="hidden md:flex md:items-center space-x-8">
             {navLinks.map((link) => (
               <Link
-              key={link.path}
-              to={link.path}
-              className={cn(
-                "flex items-center space-x-1 text-sm font-medium transition-colors duration-200",
-                link.name === "Home"
-                  ? "text-red-500" // Força a cor vermelha para "Home"
-                  : location.pathname === link.path 
-                    ? "text-primary"
-                    : "text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white"
-              )}
-            >
-              {link.icon}
-              <span>{link.name}</span>
-            </Link>            
+                key={link.path}
+                to={link.path}
+                className={cn(
+                  "flex items-center space-x-1 text-sm font-medium transition-colors duration-200",
+                  link.name === "Home"
+                    ? "text-red-500"
+                    : location.pathname === link.path
+                      ? "text-primary"
+                      : "text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white"
+                )}
+              >
+                {link.icon}
+                <span>{link.name}</span>
+              </Link>            
             ))}
             {!isAdminPath && (
               <Button asChild variant="outline" className="ml-4">
@@ -112,7 +111,7 @@ export const Navbar = () => {
                 to={link.path}
                 className={cn(
                   "flex items-center space-x-2 py-2 text-base font-medium transition-colors duration-200",
-                  location.pathname === link.path 
+                  location.pathname === link.path
                     ? "text-primary" 
                     : "text-gray-700 hover:text-primary dark:text-gray-300 dark:hover:text-white"
                 )}
