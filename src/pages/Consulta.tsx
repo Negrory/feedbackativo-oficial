@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Car, Calendar, Wrench, AlertCircle, MapPin, CheckCircle2, Clock, Image, ArrowRight, ShieldCheck, Settings, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -244,65 +243,28 @@ const Consulta = () => {
                 
                 <Card className="border-0 glass-card shadow-lg overflow-hidden">
                   <CardHeader className="border-b border-red-800/30 pb-3 pt-5">
-                    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                    <Tabs defaultValue="timeline" className="w-full">
                       <TabsList className="w-full bg-red-900/60 p-1 border border-red-700/40">
                         <TabsTrigger value="timeline" className="flex-1 data-[state=active]:bg-red-700/80">
                           <Clock className="w-4 h-4 mr-2" />
-                          Histórico
+                          Linha do Tempo
                         </TabsTrigger>
                         <TabsTrigger value="photos" className="flex-1 data-[state=active]:bg-red-700/80">
                           <Camera className="w-4 h-4 mr-2" />
                           Fotos
                         </TabsTrigger>
                       </TabsList>
+                      <TabsContent value="timeline">
+                        <Timeline items={mockTimelineItems} />
+                      </TabsContent>
+                      <TabsContent value="photos">
+                        <div className="p-4">
+                          <h3>Fotos do Veículo</h3>
+                          {/* Conteúdo das fotos aqui */}
+                        </div>
+                      </TabsContent>
                     </Tabs>
                   </CardHeader>
-                  
-                  <CardContent className="p-6">
-                    <TabsContent value="timeline" className="mt-0">
-                      <div className="bg-red-950/30 p-4 rounded-lg mb-4 border border-red-800/30">
-                        <h3 className="text-lg font-medium text-red-100 flex items-center gap-2 mb-1">
-                          <Wrench className="w-5 h-5 text-red-300" />
-                          Progresso do Reparo
-                        </h3>
-                        <p className="text-red-200 text-sm">Acompanhe todas as etapas do reparo do seu veículo</p>
-                      </div>
-                      
-                      <Timeline items={mockTimelineItems} />
-                      
-                      <div className="mt-6 flex justify-center">
-                        <Button variant="outline" className="group border-red-600/40 text-red-200 hover:text-red-50 hover:bg-red-700/50">
-                          Ver histórico completo
-                          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                        </Button>
-                      </div>
-                    </TabsContent>
-                    
-                    <TabsContent value="photos" className="mt-0">
-                      <div className="bg-red-950/30 p-4 rounded-lg mb-4 border border-red-800/30">
-                        <h3 className="text-lg font-medium text-red-100 flex items-center gap-2 mb-1">
-                          <Camera className="w-5 h-5 text-red-300" />
-                          Fotos do Processo
-                        </h3>
-                        <p className="text-red-200 text-sm">Visualize as imagens do veículo durante as etapas de reparo</p>
-                      </div>
-                      
-                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                        {mockTimelineItems
-                          .filter(item => item.images && item.images.length > 0)
-                          .flatMap(item => item.images)
-                          .map((image, index) => (
-                            <div key={index} className="aspect-square bg-red-900/40 rounded-lg overflow-hidden shadow-lg border border-red-700/30 group">
-                              <img 
-                                src={image} 
-                                alt={`Foto ${index + 1}`} 
-                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                              />
-                            </div>
-                          ))}
-                      </div>
-                    </TabsContent>
-                  </CardContent>
                 </Card>
               </div>
             )}
