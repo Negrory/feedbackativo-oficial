@@ -14,26 +14,29 @@ import Finalizacao from './pages/admin/Finalizacao';
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/consulta" element={<Consulta />} />
-          <Route path="/admin/dashboard" element={<Dashboard />} />
-          <Route path="/admin/relatorios" element={<Relatorios />} />
-          <Route path="/admin/atualizacoes" element={<Atualizacoes />} />
-          <Route path="/admin/vistoria-entrada" element={<VistoriaEntrada />} />
-          <Route path="/admin/finalizacao" element={<Finalizacao />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  console.log('App component is rendering');
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/consulta" element={<Consulta />} />
+            <Route path="/admin/dashboard" element={<Dashboard />} />
+            <Route path="/admin/relatorios" element={<Relatorios />} />
+            <Route path="/admin/atualizacoes" element={<Atualizacoes />} />
+            <Route path="/admin/vistoria-entrada" element={<VistoriaEntrada />} />
+            <Route path="/admin/finalizacao" element={<Finalizacao />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
