@@ -12,11 +12,23 @@
     <link rel="shortcut icon" href="/feedbackativo-oficial/favicon.ico" />
     <script type="text/javascript">
       (function(l) {
-        if (l.hash && l.hash.includes('#/')) {
-          var path = l.hash.slice(1);
-          window.history.replaceState(null, null,
-            '/feedbackativo-oficial' + path
+        const basename = '/feedbackativo-oficial';
+        
+        // Se a URL não contiver o basename, redirecionar
+        if (!l.pathname.includes(basename)) {
+          l.replace(
+            l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+            basename + l.pathname +
+            (l.search || '') +
+            (l.hash || '')
           );
+          return;
+        }
+
+        // Lidar com hash routing se necessário
+        if (l.hash && l.hash.includes('#/')) {
+          const path = l.hash.slice(1);
+          window.history.replaceState(null, null, basename + path);
         }
       }(window.location))
     </script>

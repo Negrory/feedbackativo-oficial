@@ -8,26 +8,35 @@
       // MIT License
       // https://github.com/rafgraph/spa-github-pages
       (function(l) {
-        // Não redirecionar se já estiver na página 404 do GitHub Pages
-        if (l.pathname.includes('/404.html')) {
+        // Configurações
+        const githubUsername = 'negrory';
+        const projectName = 'feedbackativo-oficial';
+        const basename = '/' + projectName;
+        
+        // Se já estiver na página 404, não redirecionar
+        if (l.pathname.endsWith('/404.html')) {
           return;
         }
 
-        var basename = '/feedbackativo-oficial';
-        var path = l.pathname;
+        // Remove o nome de usuário do GitHub da URL se presente
+        let path = l.pathname;
+        if (path.startsWith('/' + githubUsername)) {
+          path = path.slice(('/' + githubUsername).length);
+        }
         
-        // Se o caminho não começar com o basename, adicione-o
-        if (!path.startsWith(basename)) {
+        // Se o caminho não incluir o basename, adicione-o
+        if (!path.includes(basename)) {
           path = basename + (path.startsWith('/') ? path : '/' + path);
         }
 
-        // Redirecionar para a página principal com o caminho correto
-        l.replace(
+        // Redirecionar para a URL correta
+        const redirectUrl = 
           l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-          basename + '/#' + path.slice(basename.length) +
+          path +
           (l.search || '') +
-          (l.hash || '')
-        );
+          (l.hash || '');
+
+        l.replace(redirectUrl);
       }(window.location))
     </script>
   </head>
