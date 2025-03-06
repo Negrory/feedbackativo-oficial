@@ -6,6 +6,8 @@ import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 
 const Index = () => {
+  console.log("Arquivo index-Ccks4kDm.js carregado com sucesso!");
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />
