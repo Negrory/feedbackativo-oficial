@@ -4,19 +4,31 @@
     <meta charset="utf-8">
     <title>FeedBack Ativo</title>
     <script type="text/javascript">
-      var segmentCount = 1;
-      var l = window.location;
-      
-      // Considerar o basename do projeto (feedbackativo-oficial)
-      var basePath = '/feedbackativo-oficial/';
-      
-      l.replace(
-        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        basePath + '?/' +
-        l.pathname.slice(basePath.length) +
-        (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
-        l.hash
-      );
+      // Single Page Apps for GitHub Pages
+      // MIT License
+      // https://github.com/rafgraph/spa-github-pages
+      (function(l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s) { 
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+        
+        // Adiciona o basename do projeto se necessário
+        var basename = '/feedbackativo-oficial';
+        var path = l.pathname;
+        if (!path.startsWith(basename)) {
+          path = basename + path;
+        }
+        
+        l.replace(
+          l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+          path + (l.search || '') + l.hash
+        );
+      }(window.location))
     </script>
   </head>
   <body>
