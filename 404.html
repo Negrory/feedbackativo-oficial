@@ -4,39 +4,22 @@
     <meta charset="utf-8">
     <title>FeedBack Ativo</title>
     <script type="text/javascript">
-      // Single Page Apps for GitHub Pages
-      // MIT License
-      // https://github.com/rafgraph/spa-github-pages
       (function(l) {
-        // Configurações
-        const githubUsername = 'negrory';
-        const projectName = 'feedbackativo-oficial';
-        const basename = '/' + projectName;
+        const basename = '/feedbackativo-oficial';
+        const path = l.pathname;
         
-        // Se já estiver na página 404, não redirecionar
-        if (l.pathname.endsWith('/404.html')) {
-          return;
-        }
-
-        // Remove o nome de usuário do GitHub da URL se presente
-        let path = l.pathname;
-        if (path.startsWith('/' + githubUsername)) {
-          path = path.slice(('/' + githubUsername).length);
-        }
+        // Remover o basename e /404.html do caminho
+        const cleanPath = path
+          .replace(basename, '')
+          .replace('/404.html', '');
         
-        // Se o caminho não incluir o basename, adicione-o
-        if (!path.includes(basename)) {
-          path = basename + (path.startsWith('/') ? path : '/' + path);
-        }
-
-        // Redirecionar para a URL correta
-        const redirectUrl = 
+        // Redirecionar para a página principal com hash routing
+        l.replace(
           l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-          path +
+          basename + '/#' + cleanPath +
           (l.search || '') +
-          (l.hash || '');
-
-        l.replace(redirectUrl);
+          (l.hash || '')
+        );
       }(window.location))
     </script>
   </head>
