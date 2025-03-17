@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
@@ -53,7 +52,7 @@ export const Timeline: React.FC<TimelineProps> = ({ items, className }) => {
               {/* Timeline node */}
               <div className="relative z-10 flex-shrink-0 w-10 h-10 flex items-center justify-center">
                 {item.status === 'completed' ? (
-                  <div className="h-9 w-9 rounded-full bg-primary flex items-center justify-center">
+                  <div className="h-9 w-9 rounded-full bg-emerald-600 flex items-center justify-center">
                     <CheckCircle className="h-5 w-5 text-white" />
                   </div>
                 ) : item.status === 'current' ? (

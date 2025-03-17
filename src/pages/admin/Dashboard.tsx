@@ -7,13 +7,48 @@ import {
   BarChart3, 
   PieChart, 
   ArrowUpRight, 
-  Plus 
+  Plus,
+  Eye,
+  FileText,
+  Clock3
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { StatusBadge } from '@/components/ui/StatusBadge';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import { SearchBar } from '@/components/ui/SearchBar';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+import { toast } from "@/components/ui/use-toast";
+
+interface Vehicle {
+  id: string;
+  plate: string;
+  model: string;
+  workshop: string;
+  lastUpdate: string;
+  status: 'inprogress' | 'delayed' | 'completed';
+  daysDelayed: number;
+}
+
+interface Feedback {
+  id: string;
+  data: string;
+  descricao: string;
+  oficina: string;
+  fotos: string[];
+}
 
 const mockVehicles = [
   { id: '1', plate: 'ABC1234', model: 'Toyota Corolla', workshop: 'Oficina Central', lastUpdate: '28/03/2023', status: 'inprogress' as const, daysDelayed: 0 },
@@ -26,14 +61,47 @@ const mockVehicles = [
   { id: '8', plate: 'VWX9012', model: 'Renault Kwid', workshop: 'Oficina Norte', lastUpdate: '10/03/2023', status: 'completed' as const, daysDelayed: 0 },
 ];
 
+// Mock data para feedbacks
+const mockFeedbacksAprovados: Feedback[] = [
+  {
+    id: '1',
+    data: '2024-03-25',
+    descricao: 'Troca de óleo e filtros realizada com sucesso.',
+    oficina: 'Oficina Central',
+    fotos: ['foto1.jpg', 'foto2.jpg']
+  },
+  {
+    id: '2',
+    data: '2024-03-20',
+    descricao: 'Alinhamento e balanceamento concluídos.',
+    oficina: 'Oficina Sul',
+    fotos: ['foto3.jpg']
+  }
+];
+
+const mockFeedbacksPendentes: Feedback[] = [
+  {
+    id: '3',
+    data: '2024-03-28',
+    descricao: 'Reparo na suspensão finalizado, aguardando aprovação.',
+    oficina: 'Oficina Norte',
+    fotos: ['foto4.jpg', 'foto5.jpg']
+  }
+];
+
 const Dashboard = () => {
   const delayedVehicles = mockVehicles.filter(v => v.status === 'delayed');
   const inProgressVehicles = mockVehicles.filter(v => v.status === 'inprogress');
   const completedVehicles = mockVehicles.filter(v => v.status === 'completed');
   
   const [searchQuery, setSearchQuery] = useState('');
-  const [filteredVehicles, setFilteredVehicles] = useState(mockVehicles);
+  const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(mockVehicles);
   
+  const [modalAberto, setModalAberto] = useState(false);
+  const [veiculoSelecionado, setVeiculoSelecionado] = useState<Vehicle | null>(null);
+  const [feedbacksAprovados, setFeedbacksAprovados] = useState<Feedback[]>(mockFeedbacksAprovados);
+  const [feedbacksPendentes, setFeedbacksPendentes] = useState<Feedback[]>(mockFeedbacksPendentes);
+
   const handleSearch = (query: string) => {
     setSearchQuery(query);
     if (query) {
@@ -47,6 +115,37 @@ const Dashboard = () => {
     } else {
       setFilteredVehicles(mockVehicles);
     }
+  };
+
+  const handleVerDetalhes = (veiculo: Vehicle) => {
+    setVeiculoSelecionado(veiculo);
+    setModalAberto(true);
+  };
+
+  const handleNovaAtualizacao = () => {
+    // Redirecionar para a página de nova atualização com a placa pré-selecionada
+    window.location.href = `/feedbackativo-oficial/admin/atualizacoes?plate=${veiculoSelecionado?.plate}`;
+  };
+
+  const handleAprovarFeedback = (id: string) => {
+    const feedbackParaAprovar = feedbacksPendentes.find(f => f.id === id);
+    if (feedbackParaAprovar) {
+      setFeedbacksAprovados([...feedbacksAprovados, feedbackParaAprovar]);
+      setFeedbacksPendentes(feedbacksPendentes.filter(f => f.id !== id));
+      toast({
+        title: "Feedback aprovado",
+        description: "O feedback foi aprovado e está disponível para consulta.",
+      });
+    }
+  };
+
+  const handleRejeitarFeedback = (id: string) => {
+    setFeedbacksPendentes(feedbacksPendentes.filter(f => f.id !== id));
+    toast({
+      title: "Feedback rejeitado",
+      description: "O feedback foi rejeitado e será removido da lista.",
+      variant: "destructive"
+    });
   };
 
   return (
@@ -67,16 +166,23 @@ const Dashboard = () => {
             
             <div className="mt-4 md:mt-0 flex space-x-3">
               <Button asChild variant="outline">
-                <a href="/admin/relatorios">
+                <a href="/feedbackativo-oficial/admin/relatorios">
                   <BarChart3 className="w-4 h-4 mr-2" />
                   Relatórios
                 </a>
               </Button>
               
               <Button asChild>
-                <a href="/admin/vistoria-entrada">
+                <a href="/feedbackativo-oficial/admin/vistoria-entrada">
                   <Plus className="w-4 h-4 mr-2" />
                   Nova Vistoria
+                </a>
+              </Button>
+
+              <Button asChild variant="secondary">
+                <a href="/feedbackativo-oficial/admin/adicionar-veiculo">
+                  <Car className="w-4 h-4 mr-2" />
+                  Adicionar Veículo
                 </a>
               </Button>
             </div>
@@ -103,7 +209,7 @@ const Dashboard = () => {
                 </p>
                 
                 <Button asChild variant="ghost" size="sm" className="text-xs">
-                  <a href="/admin/relatorios">
+                  <a href="/feedbackativo-oficial/admin/relatorios">
                     Ver detalhes
                     <ArrowUpRight className="w-3 h-3 ml-1" />
                   </a>
@@ -131,7 +237,7 @@ const Dashboard = () => {
                 </p>
                 
                 <Button asChild variant="ghost" size="sm" className="text-xs">
-                  <a href="/admin/atualizacoes">
+                  <a href="/feedbackativo-oficial/admin/atualizacoes">
                     Atualizar
                     <ArrowUpRight className="w-3 h-3 ml-1" />
                   </a>
@@ -159,7 +265,7 @@ const Dashboard = () => {
                 </p>
                 
                 <Button asChild variant="ghost" size="sm" className="text-xs">
-                  <a href="/admin/relatorios">
+                  <a href="/feedbackativo-oficial/admin/relatorios">
                     Ver detalhes
                     <ArrowUpRight className="w-3 h-3 ml-1" />
                   </a>
@@ -244,10 +350,14 @@ const Dashboard = () => {
                         )}
                       </td>
                       <td className="px-6 py-4">
-                        <Button asChild variant="ghost" size="sm">
-                          <a href={`/admin/atualizacoes?plate=${vehicle.plate}`}>
-                            Detalhes
-                          </a>
+                        <Button
+                          onClick={() => handleVerDetalhes(vehicle)}
+                          variant="ghost"
+                          size="sm"
+                          className="flex items-center"
+                        >
+                          <Eye className="w-4 h-4 mr-1" />
+                          Detalhes
                         </Button>
                       </td>
                     </tr>
@@ -265,6 +375,137 @@ const Dashboard = () => {
         </div>
       </main>
       
+      {/* Modal de Detalhes */}
+      <Dialog open={modalAberto} onOpenChange={setModalAberto}>
+        <DialogContent className="max-w-4xl">
+          <DialogHeader>
+            <DialogTitle className="flex items-center space-x-2">
+              <Car className="h-6 w-6" />
+              <span>
+                Detalhes do Veículo - {veiculoSelecionado?.plate}
+              </span>
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className="mt-4">
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div>
+                <p className="text-sm text-gray-500">Modelo</p>
+                <p className="font-medium">{veiculoSelecionado?.model}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-500">Oficina</p>
+                <p className="font-medium">{veiculoSelecionado?.workshop}</p>
+              </div>
+            </div>
+
+            <Button onClick={handleNovaAtualizacao} className="mb-6">
+              <Plus className="h-4 w-4 mr-2" />
+              Nova Atualização
+            </Button>
+
+            <Tabs defaultValue="aprovados" className="w-full">
+              <TabsList className="grid w-full grid-cols-2 mb-4">
+                <TabsTrigger value="aprovados" className="flex items-center">
+                  <CheckCircle className="h-4 w-4 mr-2" />
+                  Feedbacks Aprovados
+                </TabsTrigger>
+                <TabsTrigger value="pendentes" className="flex items-center">
+                  <Clock3 className="h-4 w-4 mr-2" />
+                  Aguardando Aprovação
+                </TabsTrigger>
+              </TabsList>
+
+              <TabsContent value="aprovados">
+                <div className="space-y-4">
+                  {feedbacksAprovados.length > 0 ? (
+                    feedbacksAprovados.map((feedback) => (
+                      <div
+                        key={feedback.id}
+                        className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center space-x-2">
+                            <FileText className="h-4 w-4 text-gray-500" />
+                            <span className="font-medium">
+                              {new Date(feedback.data).toLocaleDateString()}
+                            </span>
+                          </div>
+                          <Badge variant="outline">{feedback.oficina}</Badge>
+                        </div>
+                        <p className="text-gray-600 dark:text-gray-300 mb-2">
+                          {feedback.descricao}
+                        </p>
+                        <div className="text-sm text-gray-500">
+                          {feedback.fotos.length} foto(s) anexada(s)
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-center py-8 text-gray-500">
+                      Nenhum feedback aprovado encontrado.
+                    </div>
+                  )}
+                </div>
+              </TabsContent>
+
+              <TabsContent value="pendentes">
+                <div className="space-y-4">
+                  {feedbacksPendentes.length > 0 ? (
+                    feedbacksPendentes.map((feedback) => (
+                      <div
+                        key={feedback.id}
+                        className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+                      >
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center space-x-2">
+                            <Clock className="h-4 w-4 text-yellow-500" />
+                            <span className="font-medium">
+                              {new Date(feedback.data).toLocaleDateString()}
+                            </span>
+                          </div>
+                          <Badge variant="outline">{feedback.oficina}</Badge>
+                        </div>
+                        <p className="text-gray-600 dark:text-gray-300 mb-2">
+                          {feedback.descricao}
+                        </p>
+                        <div className="text-sm text-gray-500 mb-3">
+                          {feedback.fotos.length} foto(s) anexada(s)
+                        </div>
+                        <div className="flex space-x-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-green-600 hover:text-green-700 hover:bg-green-50"
+                            onClick={() => handleAprovarFeedback(feedback.id)}
+                          >
+                            <CheckCircle className="h-4 w-4 mr-1" />
+                            Aprovar
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                            onClick={() => handleRejeitarFeedback(feedback.id)}
+                          >
+                            <AlertCircle className="h-4 w-4 mr-1" />
+                            Rejeitar
+                          </Button>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div className="text-center py-8 text-gray-500">
+                      Nenhum feedback aguardando aprovação.
+                    </div>
+                  )}
+                </div>
+              </TabsContent>
+            </Tabs>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       <Footer />
     </div>
   );

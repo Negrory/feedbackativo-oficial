@@ -33,12 +33,6 @@ const Index = () => {
                   Consultar Veículo
                 </Link>
               </Button>
-              
-              <Button asChild variant="outline" size="lg">
-                <Link to="/admin/dashboard">
-                  Acesso Administrativo
-                </Link>
-              </Button>
             </div>
           </div>
         </div>

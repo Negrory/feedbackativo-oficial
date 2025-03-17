@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { AlertCircle, Clock, CheckCircle } from 'lucide-react';
@@ -15,24 +14,24 @@ interface StatusBadgeProps {
 const statusConfig = {
   delayed: {
     label: 'Atrasado',
-    bg: 'bg-status-delayed',
-    text: 'text-status-delayed-foreground',
+    bg: 'bg-red-100',
+    text: 'text-red-700',
     icon: AlertCircle,
-    iconClass: 'text-status-delayed-foreground'
+    iconClass: 'text-red-700'
   },
   inprogress: {
     label: 'Em Andamento',
-    bg: 'bg-status-inprogress',
-    text: 'text-status-inprogress-foreground',
+    bg: 'bg-cyan-100',
+    text: 'text-cyan-700',
     icon: Clock,
-    iconClass: 'text-status-inprogress-foreground'
+    iconClass: 'text-cyan-700'
   },
   completed: {
     label: 'Finalizado',
-    bg: 'bg-status-completed',
-    text: 'text-status-completed-foreground',
+    bg: 'bg-emerald-100',
+    text: 'text-emerald-700',
     icon: CheckCircle,
-    iconClass: 'text-status-completed-foreground'
+    iconClass: 'text-emerald-700'
   }
 };
 

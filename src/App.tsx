@@ -11,6 +11,11 @@ import Relatorios from './pages/admin/Relatorios';
 import Atualizacoes from './pages/admin/Atualizacoes';
 import VistoriaEntrada from './pages/admin/VistoriaEntrada';
 import Finalizacao from './pages/admin/Finalizacao';
+import AguardandoAprovacao from './pages/admin/AguardandoAprovacao';
+import AdicionarVeiculo from './pages/admin/AdicionarVeiculo';
+import Veiculos from './pages/admin/Veiculos';
+import AdicionarOficina from './pages/admin/AdicionarOficina';
+import Oficinas from './pages/admin/Oficinas';
 
 const queryClient = new QueryClient();
 
@@ -30,6 +35,11 @@ const App = () => {
             <Route path="/admin/atualizacoes" element={<Atualizacoes />} />
             <Route path="/admin/vistoria-entrada" element={<VistoriaEntrada />} />
             <Route path="/admin/finalizacao" element={<Finalizacao />} />
+            <Route path="/admin/aguardando-aprovacao" element={<AguardandoAprovacao />} />
+            <Route path="/admin/adicionar-veiculo" element={<AdicionarVeiculo />} />
+            <Route path="/admin/veiculos" element={<Veiculos />} />
+            <Route path="/admin/adicionar-oficina" element={<AdicionarOficina />} />
+            <Route path="/admin/oficinas" element={<Oficinas />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

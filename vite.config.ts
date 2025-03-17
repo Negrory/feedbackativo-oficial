@@ -18,6 +18,14 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    proxy: {
+      '/api/sga': {
+        target: 'https://api.hinova.com.br',
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api\/sga/, '/api/sga')
+      }
+    }
   },
   plugins: [
     react(),

@@ -104,8 +104,8 @@ const Consulta = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[url('https://revistacarro.com.br/wp-content/uploads/2022/05/BMW-3-Series-Sedan_3.jpg')] bg-cover bg-fixed before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-b before:from-slate-900/20 before:to-red-900/17,5 before:backdrop-blur-sm relative">
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-red-900/70 to-slate-900/80 backdrop-blur-[2px] z-0"></div>
+    <div className="min-h-screen flex flex-col bg-[url('https://revistacarro.com.br/wp-content/uploads/2022/05/BMW-3-Series-Sedan_3.jpg')] bg-cover bg-fixed before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-b before:from-slate-900/20 before:to-emerald-900/17.5 before:backdrop-blur-sm relative">
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/90 via-emerald-900/50 to-slate-900/80 backdrop-blur-[2px] z-0"></div>
       
       <Navbar />
       
@@ -113,16 +113,16 @@ const Consulta = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-red-200 to-cyan-100 drop-shadow-md">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 to-cyan-100 drop-shadow-md">
                 Consulta de Veículo
               </h1>
-              <p className="text-red-100/90 max-w-2xl mx-auto text-lg">
+              <p className="text-emerald-100/90 max-w-2xl mx-auto text-lg">
                 Acompanhe em tempo real o status do reparo do seu veículo
               </p>
             </div>
             
             <Card className="mb-10 border-0 shadow-xl glass-card overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-red-600/10 to-cyan-400/10 rounded-lg"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/10 to-cyan-400/10 rounded-lg"></div>
               <CardContent className="pt-6 relative z-10">
                 <SearchBar 
                   placeholder="Digite a placa do veículo ou CPF do proprietário" 
@@ -131,35 +131,35 @@ const Consulta = () => {
                 />
                 <div className="mt-4 flex items-center justify-center gap-6">
                   <div className="flex items-center gap-2">
-                    <Car className="w-5 h-5 text-red-400" />
-                    <p className="text-sm text-red-100">Consulta por placa</p>
+                    <Car className="w-5 h-5 text-emerald-400" />
+                    <p className="text-sm text-emerald-100">Consulta por placa</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-red-400" />
-                    <p className="text-sm text-red-100">Consulta por CPF</p>
+                    <ShieldCheck className="w-5 h-5 text-emerald-400" />
+                    <p className="text-sm text-emerald-100">Consulta por CPF</p>
                   </div>
                 </div>
-                <p className="text-xs text-red-200/70 text-center mt-3">
-                  Use <span className="font-mono bg-red-900/40 px-1.5 py-0.5 rounded">ABC1234</span> como exemplo para ver os resultados da busca
+                <p className="text-xs text-emerald-200/70 text-center mt-3">
+                  Use <span className="font-mono bg-emerald-900/40 px-1.5 py-0.5 rounded">ABC1234</span> como exemplo para ver os resultados da busca
                 </p>
               </CardContent>
             </Card>
             
             {isLoading && (
               <div className="text-center py-12">
-                <div className="w-12 h-12 border-4 border-red-300/30 border-t-red-300 rounded-full animate-spin mx-auto mb-4"></div>
-                <p className="text-red-100">Buscando informações do veículo...</p>
+                <div className="w-12 h-12 border-4 border-emerald-300/30 border-t-emerald-300 rounded-full animate-spin mx-auto mb-4"></div>
+                <p className="text-emerald-100">Buscando informações do veículo...</p>
               </div>
             )}
             
             {error && !isLoading && (
               <Card className="border-0 glass-card shadow-lg overflow-hidden animate-fade-in">
-                <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-red-400/10 rounded-lg"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-amber-600/20 to-amber-400/10 rounded-lg"></div>
                 <CardContent className="pt-6 relative">
                   <div className="text-center py-4">
-                    <AlertCircle className="h-14 w-14 text-red-300 mx-auto mb-3" />
-                    <h3 className="text-xl font-medium text-red-200 mb-2">Veículo não encontrado</h3>
-                    <p className="text-red-200/80">{error}</p>
+                    <AlertCircle className="h-14 w-14 text-amber-300 mx-auto mb-3" />
+                    <h3 className="text-xl font-medium text-amber-200 mb-2">Veículo não encontrado</h3>
+                    <p className="text-amber-200/80">{error}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -168,29 +168,29 @@ const Consulta = () => {
             {searchResult && !isLoading && (
               <div className="space-y-6 animate-fade-in">
                 <Card className="border-0 glass-card shadow-lg overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-red-600/20 to-cyan-400/10 rounded-lg"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/20 to-cyan-400/10 rounded-lg"></div>
                   
                   <CardContent className="p-6 relative">
                     <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-6">
                       <div className="flex items-center">
-                        <div className="w-20 h-20 rounded-full overflow-hidden flex items-center justify-center mr-5 border-2 border-red-300/20 shadow-lg bg-gradient-to-br from-red-500/80 to-red-700/80">
+                        <div className="w-20 h-20 rounded-full overflow-hidden flex items-center justify-center mr-5 border-2 border-emerald-300/20 shadow-lg bg-gradient-to-br from-emerald-500/80 to-emerald-700/80">
                           <Car className="w-10 h-10 text-white" />
                         </div>
                         
                         <div>
-                          <h2 className="text-2xl md:text-3xl font-bold text-red-50 mb-1">
+                          <h2 className="text-2xl md:text-3xl font-bold text-emerald-50 mb-1">
                             {searchResult.model}
                           </h2>
                           <div className="flex items-center gap-2 mt-1">
-                            <span className="bg-red-500/30 border border-red-500/40 text-red-100 text-xs font-medium px-2.5 py-0.5 rounded-full">
+                            <span className="bg-emerald-500/30 border border-emerald-500/40 text-emerald-100 text-xs font-medium px-2.5 py-0.5 rounded-full">
                               {searchResult.plate}
                             </span>
-                            <span className="text-red-200 text-sm">
+                            <span className="text-emerald-200 text-sm">
                               {searchResult.color}, {searchResult.year}
                             </span>
                           </div>
-                          <p className="text-red-300 text-sm mt-1.5">
-                            Proprietário: <span className="font-medium text-red-200">{searchResult.owner}</span>
+                          <p className="text-emerald-300 text-sm mt-1.5">
+                            Proprietário: <span className="font-medium text-emerald-200">{searchResult.owner}</span>
                           </p>
                         </div>
                       </div>
@@ -199,39 +199,39 @@ const Consulta = () => {
                     </div>
                     
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                      <div className="bg-gradient-to-br from-red-900/40 to-red-800/40 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-red-700/40">
+                      <div className="bg-gradient-to-br from-emerald-900/40 to-emerald-800/40 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-emerald-700/40">
                         <div className="flex items-center mb-2">
-                          <Calendar className="w-5 h-5 text-red-300 mr-2" />
-                          <h3 className="text-sm font-medium text-red-200">Data de Entrada</h3>
+                          <Calendar className="w-5 h-5 text-emerald-300 mr-2" />
+                          <h3 className="text-sm font-medium text-emerald-200">Data de Entrada</h3>
                         </div>
-                        <p className="text-lg font-semibold text-red-50">
+                        <p className="text-lg font-semibold text-emerald-50">
                           {searchResult.startDate.toLocaleDateString('pt-BR')}
                         </p>
                       </div>
                       
-                      <div className="bg-gradient-to-br from-red-900/40 to-red-800/40 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-red-700/40">
+                      <div className="bg-gradient-to-br from-emerald-900/40 to-emerald-800/40 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-emerald-700/40">
                         <div className="flex items-center mb-2">
-                          <MapPin className="w-5 h-5 text-red-300 mr-2" />
-                          <h3 className="text-sm font-medium text-red-200">Oficina</h3>
+                          <MapPin className="w-5 h-5 text-emerald-300 mr-2" />
+                          <h3 className="text-sm font-medium text-emerald-200">Oficina</h3>
                         </div>
-                        <p className="text-lg font-semibold text-red-50">
+                        <p className="text-lg font-semibold text-emerald-50">
                           {searchResult.workshop}
                         </p>
                       </div>
                       
-                      <div className="bg-gradient-to-br from-red-900/40 to-red-800/40 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-red-700/40">
+                      <div className="bg-gradient-to-br from-emerald-900/40 to-emerald-800/40 backdrop-blur-sm rounded-xl p-4 shadow-lg border border-emerald-700/40">
                         <div className="flex items-center mb-2">
-                          <Settings className="w-5 h-5 text-red-300 mr-2" />
-                          <h3 className="text-sm font-medium text-red-200">Situação Atual</h3>
+                          <Settings className="w-5 h-5 text-emerald-300 mr-2" />
+                          <h3 className="text-sm font-medium text-emerald-200">Situação Atual</h3>
                         </div>
-                        <p className="text-lg font-semibold text-red-50">
+                        <p className="text-lg font-semibold text-emerald-50">
                           {searchResult.currentStage}
                         </p>
                       </div>
                     </div>
                     
-                    <div className="text-center py-4 px-5 bg-gradient-to-r from-amber-500/20 to-amber-600/10 rounded-xl border border-amber-500/30 shadow-inner">
-                      <div className="flex items-center justify-center gap-2 text-amber-200">
+                    <div className="text-center py-4 px-5 bg-gradient-to-r from-cyan-500/20 to-cyan-600/10 rounded-xl border border-cyan-500/30 shadow-inner">
+                      <div className="flex items-center justify-center gap-2 text-cyan-200">
                         <Clock className="w-5 h-5" />
                         <p>
                           Veículo em reparo há <span className="font-bold">{searchResult.daysInRepair} dias</span>
@@ -242,14 +242,20 @@ const Consulta = () => {
                 </Card>
                 
                 <Card className="border-0 glass-card shadow-lg overflow-hidden">
-                  <CardHeader className="border-b border-red-800/30 pb-3 pt-5">
+                  <CardHeader className="border-b border-emerald-800/30 pb-3 pt-5">
                     <Tabs defaultValue="timeline" className="w-full">
-                      <TabsList className="w-full bg-red-900/60 p-1 border border-red-700/40">
-                        <TabsTrigger value="timeline" className="flex-1 data-[state=active]:bg-red-700/80">
+                      <TabsList className="w-full bg-emerald-900/60 p-1 border border-emerald-700/40">
+                        <TabsTrigger 
+                          value="timeline" 
+                          className="flex-1 text-emerald-100 data-[state=active]:bg-emerald-600 data-[state=active]:text-white"
+                        >
                           <Clock className="w-4 h-4 mr-2" />
                           Linha do Tempo
                         </TabsTrigger>
-                        <TabsTrigger value="photos" className="flex-1 data-[state=active]:bg-red-700/80">
+                        <TabsTrigger 
+                          value="photos" 
+                          className="flex-1 text-emerald-100 data-[state=active]:bg-emerald-600 data-[state=active]:text-white"
+                        >
                           <Camera className="w-4 h-4 mr-2" />
                           Fotos
                         </TabsTrigger>
@@ -275,7 +281,7 @@ const Consulta = () => {
       <style>
         {`
         .glass-card {
-          background: rgba(16, 24, 39, 0.7);
+          background: rgba(16, 39, 24, 0.7);
           backdrop-filter: blur(12px);
           -webkit-backdrop-filter: blur(12px);
         }
