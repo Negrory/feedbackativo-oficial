@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Consulta from './pages/Consulta';
@@ -28,24 +28,22 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter basename="/feedbackativo-oficial">
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/consulta" element={<Consulta />} />
-            <Route path="/admin/dashboard" element={<Dashboard />} />
-            <Route path="/admin/relatorios" element={<Relatorios />} />
-            <Route path="/admin/atualizacoes" element={<Atualizacoes />} />
-            <Route path="/admin/vistoria-entrada" element={<VistoriaEntrada />} />
-            <Route path="/admin/finalizacao" element={<Finalizacao />} />
-            <Route path="/admin/aguardando-aprovacao" element={<AguardandoAprovacao />} />
-            <Route path="/admin/adicionar-veiculo" element={<AdicionarVeiculo />} />
-            <Route path="/admin/veiculos" element={<Veiculos />} />
-            <Route path="/admin/adicionar-oficina" element={<AdicionarOficina />} />
-            <Route path="/admin/oficinas" element={<Oficinas />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/consulta" element={<Consulta />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/relatorios" element={<Relatorios />} />
+          <Route path="/admin/atualizacoes" element={<Atualizacoes />} />
+          <Route path="/admin/vistoria-entrada" element={<VistoriaEntrada />} />
+          <Route path="/admin/finalizacao" element={<Finalizacao />} />
+          <Route path="/admin/aguardando-aprovacao" element={<AguardandoAprovacao />} />
+          <Route path="/admin/adicionar-veiculo" element={<AdicionarVeiculo />} />
+          <Route path="/admin/veiculos" element={<Veiculos />} />
+          <Route path="/admin/adicionar-oficina" element={<AdicionarOficina />} />
+          <Route path="/admin/oficinas" element={<Oficinas />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
       </TooltipProvider>
     </QueryClientProvider>
   );
