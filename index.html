@@ -29,18 +29,12 @@
           return;
         }
 
-        // Lidar com hash routing se necessário
-        if (l.hash && l.hash.includes('#/')) {
-          const path = l.hash.slice(1);
-          window.history.replaceState(null, null, basename + path);
-        }
-
         // Redirecionar 404 para index.html
         if (l.pathname.endsWith('/404.html')) {
           const newPath = l.pathname.replace('/404.html', '');
           l.replace(
             l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-            basename + '/#' + newPath.slice(basename.length)
+            basename + '/' + (l.hash || '')
           );
         }
       }(window.location))
