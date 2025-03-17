@@ -1,3 +1,4 @@
+import React from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -16,6 +17,7 @@ import AdicionarVeiculo from './pages/admin/AdicionarVeiculo';
 import Veiculos from './pages/admin/Veiculos';
 import AdicionarOficina from './pages/admin/AdicionarOficina';
 import Oficinas from './pages/admin/Oficinas';
+import DefineRoutes from './routes/DefineRoutes';
 
 const queryClient = new QueryClient();
 
