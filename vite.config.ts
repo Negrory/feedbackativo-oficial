@@ -20,10 +20,10 @@ export default defineConfig(({ mode }) => ({
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
-          ui: [
-            '@/components/ui',
-          ],
         },
+        entryFileNames: `assets/[name]-[hash]-${new Date().getTime()}.js`,
+        chunkFileNames: `assets/[name]-[hash]-${new Date().getTime()}.js`,
+        assetFileNames: `assets/[name]-[hash]-${new Date().getTime()}.[ext]`
       }
     }
   },
